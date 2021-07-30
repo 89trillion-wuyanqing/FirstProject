@@ -53,7 +53,7 @@ func Init() {
 	engine := gin.Default()
 	//var p = &engine
 	router.Route(engine)
-
+	utils.FileInit()
 	httpPort := utils.GetVal("server", "HttpPort")
 	fmt.Println("端口号：" + httpPort)
 	engine.Run(":" + httpPort)

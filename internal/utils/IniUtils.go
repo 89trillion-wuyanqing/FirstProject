@@ -13,7 +13,7 @@ var (
 	iniFile *ini.File
 )
 
-func init() {
+func FIleInit() {
 	file, e := ini.Load("././conf/app.ini")
 	if e != nil {
 		log.Fatal("Fail to load conf/app.ini" + e.Error())

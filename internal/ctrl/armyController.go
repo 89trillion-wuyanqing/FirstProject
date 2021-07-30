@@ -41,7 +41,7 @@ func GetArmys(context *gin.Context) {
 		})
 	} else if err != nil {
 		context.JSON(200, map[string]interface{}{
-			"code":    201,
+			"code":    202,
 			"message": "ERROR",
 			"data":    err,
 		})
@@ -68,7 +68,7 @@ func GetArmyRarity(context *gin.Context) {
 		})
 	} else if err != nil {
 		context.JSON(200, map[string]interface{}{
-			"code":    201,
+			"code":    202,
 			"message": "ERROR",
 			"data":    err,
 		})
@@ -94,7 +94,7 @@ func GetArmyAtk(context *gin.Context) {
 		})
 	} else if err != nil {
 		context.JSON(200, map[string]interface{}{
-			"code":    201,
+			"code":    202,
 			"message": "ERROR",
 			"data":    err,
 		})
@@ -119,7 +119,7 @@ func GetArmysByCvc(context *gin.Context) {
 		})
 	} else if err != nil {
 		context.JSON(200, map[string]interface{}{
-			"code":    201,
+			"code":    202,
 			"message": "ERROR",
 			"data":    err,
 		})
@@ -137,7 +137,7 @@ func GetArmysByStage(context *gin.Context) {
 	returnMap, err := handler.GetArmysByStage()
 	if err != nil {
 		context.JSON(200, map[string]interface{}{
-			"code":    201,
+			"code":    202,
 			"message": "ERROR",
 			"data":    err,
 		})
