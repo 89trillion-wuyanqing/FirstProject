@@ -9,7 +9,10 @@ import (
 
 //
 
-func GetArmys(rarity string, unlockArena int, cvc string) (map[string]model.Army, error) {
+type ArmyHandler struct {
+}
+
+func (this *ArmyHandler) GetArmys(rarity string, unlockArena int, cvc string) (map[string]model.Army, error) {
 	var returnMap map[string]model.Army
 	returnMap = make(map[string]model.Army)
 
@@ -47,7 +50,7 @@ func GetArmys(rarity string, unlockArena int, cvc string) (map[string]model.Army
 
 }
 
-func GetArmyRarity(id string) (string, error) {
+func (this *ArmyHandler) GetArmyRarity(id string) (string, error) {
 
 	army, e := utils.GetNewJson()
 	if e != nil {
@@ -65,7 +68,7 @@ func GetArmyRarity(id string) (string, error) {
 	return "", errors.New("id没有匹配到士兵")
 }
 
-func GetArmyAtk(id string) (string, error) {
+func (this *ArmyHandler) GetArmyAtk(id string) (string, error) {
 
 	army, e := utils.GetNewJson()
 	if e != nil {
@@ -83,7 +86,7 @@ func GetArmyAtk(id string) (string, error) {
 	return "", errors.New("id没有匹配到士兵")
 }
 
-func GetArmysByCvc(cvc string) (map[string]model.Army, error) {
+func (this *ArmyHandler) GetArmysByCvc(cvc string) (map[string]model.Army, error) {
 	var returnMap map[string]model.Army
 	returnMap = make(map[string]model.Army)
 	army, e := utils.GetNewJson()
@@ -102,7 +105,7 @@ func GetArmysByCvc(cvc string) (map[string]model.Army, error) {
 	return returnMap, nil
 }
 
-func GetArmysByStage() (map[string][]model.Army, error) {
+func (this *ArmyHandler) GetArmysByStage() (map[string][]model.Army, error) {
 	var returnMap map[string][]model.Army
 	returnMap = make(map[string][]model.Army)
 	army, e := utils.GetNewJson()

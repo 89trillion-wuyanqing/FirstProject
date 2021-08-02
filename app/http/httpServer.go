@@ -51,12 +51,19 @@ func (this *Server) Route(controllers ...IController) *Server {
 func Init() {
 	// 作为Server的构造器
 	engine := gin.Default()
-	//var p = &engine
-	router.Route(engine)
+
+	var r = &router.RouterArmys{}
+	r.Router(engine)
+	//server.GroupRouter("/",new(router.RouterArmys))
+	//r := new(router.RouterArmys)
+	//r.Router(&server)
 	utils.FIleInit()
 	httpPort := utils.GetVal("server", "HttpPort")
 	fmt.Println("端口号：" + httpPort)
-	engine.Run(":" + httpPort)
+	var sss = ":" + httpPort
+	fmt.Println("端口号" + sss)
+
+	engine.Run(sss)
 
 }
 

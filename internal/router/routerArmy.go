@@ -5,12 +5,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Route(engine *gin.Engine) {
+type RouterArmys struct {
+}
 
-	engine.POST("/getArmys", ctrl.GetArmys)
-	engine.POST("/getArmyRarity", ctrl.GetArmyRarity)
-	engine.POST("/getArmyAtk", ctrl.GetArmyAtk)
-	engine.POST("/getArmysByCvc", ctrl.GetArmysByCvc)
-	engine.GET("/getArmysByStage", ctrl.GetArmysByStage)
+func (r *RouterArmys) Router(engine *gin.Engine) {
+	ctrlArmy := ctrl.NewArmyController()
+	engine.POST("/getArmys", ctrlArmy.GetArmys())
+	engine.POST("/getArmyRarity", ctrlArmy.GetArmyRarity())
+	engine.POST("/getArmyAtk", ctrlArmy.GetArmyAtk())
+	engine.POST("/getArmysByCvc", ctrlArmy.GetArmysByCvc())
+	engine.GET("/getArmysByStage", ctrlArmy.GetArmysByStage())
 
 }
