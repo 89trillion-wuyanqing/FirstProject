@@ -3,8 +3,8 @@ package handler
 import "testing"
 
 func TestGetArmyAtk(t *testing.T) {
-
-	atk, err := GetArmyAtk("10502")
+	armyhandler := ArmyHandler{}
+	atk, err := armyhandler.GetArmyAtk("10502")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -12,7 +12,8 @@ func TestGetArmyAtk(t *testing.T) {
 }
 
 func TestGetArmys(t *testing.T) {
-	returnmap, err := GetArmys("2", 2, "1000")
+	armyhandler := ArmyHandler{}
+	returnmap, err := armyhandler.GetArmys("2", 2, "1000")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -20,7 +21,8 @@ func TestGetArmys(t *testing.T) {
 }
 
 func TestGetArmyRarity(t *testing.T) {
-	rarity, err := GetArmyRarity("10501")
+	armyhandler := ArmyHandler{}
+	rarity, err := armyhandler.GetArmyRarity("10501")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -28,14 +30,16 @@ func TestGetArmyRarity(t *testing.T) {
 }
 
 func TestGetArmysByCvc(t *testing.T) {
-	returnmap, err := GetArmysByCvc("1000")
+	armyhandler := ArmyHandler{}
+	returnmap, err := armyhandler.GetArmysByCvc("1000")
 	if err != nil {
 		t.Fatal(err)
 	}
 	t.Log(returnmap)
 }
 func TestGetArmysByStage(t *testing.T) {
-	returnmap, err := GetArmysByStage()
+	armyhandler := ArmyHandler{}
+	returnmap, err := armyhandler.GetArmysByStage()
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -5,6 +5,7 @@ import (
 	"FirstProject/internal/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 )
 
 /*
@@ -57,13 +58,16 @@ func Init() {
 	//server.GroupRouter("/",new(router.RouterArmys))
 	//r := new(router.RouterArmys)
 	//r.Router(&server)
-	utils.FIleInit()
+	//utils.FIleInit()
 	httpPort := utils.GetVal("server", "HttpPort")
 	fmt.Println("端口号：" + httpPort)
 	var sss = ":" + httpPort
 	fmt.Println("端口号" + sss)
 
-	engine.Run(sss)
+	err := engine.Run(sss)
+	if err != nil {
+		log.Fatal("http服务启动错误" + err.Error())
+	}
 
 }
 

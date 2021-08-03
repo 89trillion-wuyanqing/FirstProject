@@ -3,7 +3,7 @@ package handler
 import (
 	"FirstProject/internal/model"
 	"FirstProject/internal/utils"
-	"errors"
+
 	"strconv"
 )
 
@@ -12,14 +12,17 @@ import (
 type ArmyHandler struct {
 }
 
-func (this *ArmyHandler) GetArmys(rarity string, unlockArena int, cvc string) (map[string]model.Army, error) {
+/**
+根据稀有度，解锁程度，客户端版本获取符合要求的士兵信息
+*/
+func (this *ArmyHandler) GetArmys(rarity string, unlockArena int, cvc string) model.Result {
 	var returnMap map[string]model.Army
 	returnMap = make(map[string]model.Army)
 
 	army, e := utils.GetNewJson()
 
 	if e != nil {
-		return nil, e
+		return model.Result{Code: "201", Msg: "获取不到json文件中士兵信息", Data: nil}
 	}
 
 	for k, v := range army {
@@ -31,7 +34,7 @@ func (this *ArmyHandler) GetArmys(rarity string, unlockArena int, cvc string) (m
 				if v.UnlockArena != "" {
 					ulockInt, e := strconv.Atoi(v.UnlockArena)
 					if e != nil {
-						return nil, e
+						return model.Result{Code: "202", Msg: "json文件中解锁阶段的数据格式错误", Data: nil}
 
 					}
 					if ulockInt <= unlockArena {
@@ -46,52 +49,53 @@ func (this *ArmyHandler) GetArmys(rarity string, unlockArena int, cvc string) (m
 
 	}
 
-	return returnMap, nil
+	return model.Result{Code: "200", Msg: "成功", Data: returnMap}
 
 }
 
-func (this *ArmyHandler) GetArmyRarity(id string) (string, error) {
-
+/**
+根据id获取士兵的稀有度
+*/
+func (this *ArmyHandler) GetArmyRarity(id string) model.Result {
+	var nilArmy model.Army
 	army, e := utils.GetNewJson()
 	if e != nil {
-		return "", e
+		return model.Result{Code: "201", Msg: "获取不到json文件中士兵信息", Data: nil}
 	}
 
-	for _, v := range army {
-		//cvc匹配
-		if v.Id == id {
-			return v.Rarity, nil
-
-		}
-
+	if army[id] != nilArmy {
+		return model.Result{Code: "200", Msg: "成功", Data: army[id].Rarity}
 	}
-	return "", errors.New("id没有匹配到士兵")
+
+	return model.Result{Code: "203", Msg: "不存在该士兵", Data: nil}
 }
 
-func (this *ArmyHandler) GetArmyAtk(id string) (string, error) {
-
+/**
+根据士兵id获取士兵攻击力
+*/
+func (this *ArmyHandler) GetArmyAtk(id string) model.Result {
+	var nilArmy model.Army
 	army, e := utils.GetNewJson()
 	if e != nil {
-		return "", e
+		return model.Result{Code: "201", Msg: "获取不到json文件中士兵信息", Data: nil}
 	}
 
-	for _, v := range army {
-		//cvc匹配
-		if v.Id == id {
-			return v.Atk, nil
-
-		}
-
+	if army[id] != nilArmy {
+		return model.Result{Code: "200", Msg: "成功", Data: army[id].Atk}
 	}
-	return "", errors.New("id没有匹配到士兵")
+
+	return model.Result{Code: "203", Msg: "不存在该士兵", Data: nil}
 }
 
-func (this *ArmyHandler) GetArmysByCvc(cvc string) (map[string]model.Army, error) {
+/**
+根据客户端版本获取符合要求的士兵信息
+*/
+func (this *ArmyHandler) GetArmysByCvc(cvc string) model.Result {
 	var returnMap map[string]model.Army
 	returnMap = make(map[string]model.Army)
 	army, e := utils.GetNewJson()
 	if e != nil {
-		return nil, e
+		return model.Result{Code: "201", Msg: "获取不到json文件中士兵信息", Data: nil}
 	}
 
 	for k, v := range army {
@@ -102,15 +106,22 @@ func (this *ArmyHandler) GetArmysByCvc(cvc string) (map[string]model.Army, error
 		}
 
 	}
-	return returnMap, nil
+	if len(returnMap) > 0 {
+		return model.Result{Code: "200", Msg: "成功", Data: returnMap}
+	}
+
+	return model.Result{Code: "204", Msg: "对应客户端版本的士兵信息不存在", Data: nil}
 }
 
-func (this *ArmyHandler) GetArmysByStage() (map[string][]model.Army, error) {
+/**
+将json的格式改变，将其转换成 解锁阶段--士兵
+*/
+func (this *ArmyHandler) GetArmysByStage() model.Result {
 	var returnMap map[string][]model.Army
 	returnMap = make(map[string][]model.Army)
 	army, e := utils.GetNewJson()
 	if e != nil {
-		return nil, e
+		return model.Result{Code: "201", Msg: "获取不到json文件中士兵信息", Data: nil}
 	}
 
 	for _, v := range army {
@@ -120,6 +131,6 @@ func (this *ArmyHandler) GetArmysByStage() (map[string][]model.Army, error) {
 			returnMap[v.UnlockArena] = append(returnMap[v.UnlockArena], v)
 		}
 	}
-	return returnMap, nil
+	return model.Result{Code: "200", Msg: "成功", Data: returnMap}
 
 }

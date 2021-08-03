@@ -3,12 +3,14 @@ package utils
 import (
 	"FirstProject/internal/model"
 	"encoding/json"
-	"fmt"
-
 	"io/ioutil"
+	"log"
 	"os"
 )
 
+/**
+根据json文件路径读取士兵信息
+*/
 func GetJson(filePath string) (map[string]model.Army, error) {
 	jsonFile, err := os.Open(filePath)
 	if err != nil {
@@ -22,11 +24,15 @@ func GetJson(filePath string) (map[string]model.Army, error) {
 
 }
 
+/**
+根据士兵信息创建json文件并保存
+*/
 func CreateJsonFile(army map[string]model.Army) error {
 	// 创建文件
-	filePtr, err := os.Create("conf/info.json")
+	filePtr, err := os.Create("config/info.json")
 	if err != nil {
-		fmt.Println("文件创建失败", err.Error())
+		log.Println("文件创建失败", err.Error())
+
 		return err
 	}
 	defer filePtr.Close()
@@ -34,9 +40,11 @@ func CreateJsonFile(army map[string]model.Army) error {
 	encoder := json.NewEncoder(filePtr)
 	err = encoder.Encode(army)
 	if err != nil {
-		fmt.Println("编码错误", err.Error())
+		log.Println("编码错误", err.Error())
+		//fmt.Println("编码错误", err.Error())
 	} else {
-		fmt.Println("编码成功")
+		log.Println("编码成功")
+		//fmt.Println("编码成功")
 	}
 
 	return err
@@ -46,15 +54,18 @@ func CreateJsonFile(army map[string]model.Army) error {
 		return err
 	}
 	//生成json文件
-	err = ioutil.WriteFile("conf/test.json", b, os.ModeAppend)
+	err = ioutil.WriteFile("config/test.json", b, os.ModeAppend)
 	if err != nil {
 		return err
 	}
 	return nil*/
 }
 
+/**
+获取保存json文件士兵信息
+*/
 func GetNewJson() (map[string]model.Army, error) {
-	jsonFile, err := os.Open("conf/info.json")
+	jsonFile, err := os.Open("config/info.json")
 	if err != nil {
 		return nil, err
 	}

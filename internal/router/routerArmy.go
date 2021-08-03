@@ -8,6 +8,9 @@ import (
 type RouterArmys struct {
 }
 
+/**
+路由分发
+*/
 func (r *RouterArmys) Router(engine *gin.Engine) {
 	ctrlArmy := ctrl.NewArmyController()
 	engine.POST("/getArmys", ctrlArmy.GetArmys())

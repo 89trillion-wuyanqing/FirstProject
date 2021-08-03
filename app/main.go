@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-var fileName = flag.StringP("file", "f", "conf/config.army.model.json", "Input json file path")
+var fileName = flag.StringP("file", "f", "config/config.army.model.json", "Input json file path")
 
 func wordSepNormalizeFunc(f *flag.FlagSet, name string) flag.NormalizedName {
 	from := []string{"-", "_"}
@@ -20,6 +20,8 @@ func wordSepNormalizeFunc(f *flag.FlagSet, name string) flag.NormalizedName {
 }
 
 func main() {
+	//初始化配置
+	utils.FileInit()
 	// 设置标准化参数名称的函数
 	flag.CommandLine.SetNormalizeFunc(wordSepNormalizeFunc)
 	// 把用户传递的命令行参数解析为对应变量的值
@@ -30,9 +32,12 @@ func main() {
 		log.Fatal("ERROR:" + err.Error())
 	} else {
 		//fmt.Println(returnmap)
-		utils.CreateJsonFile(returnmap)
+		e := utils.CreateJsonFile(returnmap)
+		if e != nil {
+			log.Fatal(e.Error())
+		}
 	}
-
+	//初始化服务器
 	http.Init()
 
 }
