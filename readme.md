@@ -1,6 +1,6 @@
 ## 1.整体框架
 
-本服务提供http服务，通过加载ini文件启动服务器。
+本服务通过gin框架提供http的web服务，通过启动命令行进行加载ini文件启动服务器。
 
 ## 2.目录结构
 
@@ -607,7 +607,7 @@ localhost:8000/getArmysByStage
 
 ## 流程图
 
-[https://drive.google.com/drive/folders/1lRvdhqMMFNIiI-j0PUwtsjA0vgzSbMbX](https://drive.google.com/drive/folders/1lRvdhqMMFNIiI-j0PUwtsjA0vgzSbMbX)
+![第一题流程图](第一题流程图.png)
 
 
 
