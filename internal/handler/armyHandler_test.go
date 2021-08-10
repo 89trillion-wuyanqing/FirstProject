@@ -1,47 +1,103 @@
 package handler
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestGetArmyAtk(t *testing.T) {
-	armyhandler := ArmyHandler{}
-	atk, err := armyhandler.GetArmyAtk("10502")
-	if err != nil {
-		t.Fatal(err)
+	tests := []struct {
+		name string
+		args string
+		want string
+	}{
+		{"test1", "10101", "100"},
+		{"test2", "10502", "10502"},
+		{"test3", "10502", "10502"},
 	}
-	t.Log("id为10502的士兵战斗力为" + atk)
+	armyhandler := ArmyHandler{}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := armyhandler.GetArmyAtk(tt.args); !reflect.DeepEqual(got.Data, tt.want) {
+				t.Errorf("GetCiftCodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+
 }
 
 func TestGetArmys(t *testing.T) {
-	armyhandler := ArmyHandler{}
-	returnmap, err := armyhandler.GetArmys("2", 2, "1000")
-	if err != nil {
-		t.Fatal(err)
+	tests := []struct {
+		name        string
+		rarity      string
+		unlockArena int
+		cvc         string
+		want        string
+	}{
+		{"test1", "2", 2, "1000", "100"},
+		{"test2", "3", 3, "1000", "100"},
+		{"test3", "1", 1, "1000", "100"},
 	}
-	t.Log(returnmap)
+	armyhandler := ArmyHandler{}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := armyhandler.GetArmys(tt.rarity, tt.unlockArena, tt.cvc); !reflect.DeepEqual(got.Data, tt.want) {
+				t.Errorf("GetCiftCodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
 
 func TestGetArmyRarity(t *testing.T) {
-	armyhandler := ArmyHandler{}
-	rarity, err := armyhandler.GetArmyRarity("10501")
-	if err != nil {
-		t.Fatal(err)
+	tests := []struct {
+		name string
+		args string
+		want string
+	}{
+		{"test1", "10101", "3"},
+		{"test2", "10502", "2"},
+		{"test3", "10502", "1"},
 	}
-	t.Log("id为10501的士兵的稀有度为" + rarity)
+	armyhandler := ArmyHandler{}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := armyhandler.GetArmyRarity(tt.args); !reflect.DeepEqual(got.Data, tt.want) {
+				t.Errorf("GetCiftCodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
 
 func TestGetArmysByCvc(t *testing.T) {
-	armyhandler := ArmyHandler{}
-	returnmap, err := armyhandler.GetArmysByCvc("1000")
-	if err != nil {
-		t.Fatal(err)
+	tests := []struct {
+		name string
+		args string
+		want string
+	}{
+		{"test1", "1000", "100"},
 	}
-	t.Log(returnmap)
+	armyhandler := ArmyHandler{}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := armyhandler.GetArmysByCvc(tt.args); !reflect.DeepEqual(got.Data, tt.want) {
+				t.Errorf("GetArmyAtk() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
 func TestGetArmysByStage(t *testing.T) {
-	armyhandler := ArmyHandler{}
-	returnmap, err := armyhandler.GetArmysByStage()
-	if err != nil {
-		t.Fatal(err)
+	tests := []struct {
+		name string
+		want string
+	}{
+		{"test1", "100"},
 	}
-	t.Log(returnmap)
+	armyhandler := ArmyHandler{}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := armyhandler.GetArmysByStage(); !reflect.DeepEqual(got.Data, tt.want) {
+				t.Errorf("GetCiftCodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
