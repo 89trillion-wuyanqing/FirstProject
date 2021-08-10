@@ -49,16 +49,6 @@ func CreateJsonFile(army map[string]model.Army) error {
 
 	return err
 
-	/*b, err := json.Marshal(army)
-	if err != nil {
-		return err
-	}
-	//生成json文件
-	err = ioutil.WriteFile("config/test.json", b, os.ModeAppend)
-	if err != nil {
-		return err
-	}
-	return nil*/
 }
 
 /**

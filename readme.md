@@ -7,25 +7,24 @@
 ```
 ├── app
 │   ├── http
-│   │   └── httpServer.go
-│   └── main.go
-├── conf
+│   │   └── httpServer.go #启动http
+│   └── main.go  #程序入口
+├── conf  #配置文件
 │   ├── app.ini
 │   ├── config.army.model.json
 │   └── info.json
-├── go.mod
-├── go.sum
+├── go.mod 
 └── internal
-    ├── ctrl
+    ├── ctrl #控制器层
     │   └── armyController.go
-    ├── handler
+    ├── handler #handler层
     │   ├── armyHandler.go
     │   └── armyHandler_test.go
-    ├── model
+    ├── model #模型层
     │   └── Army.go
-    ├── router
+    ├── router #路由层
     │   └── routerArmy.go
-    └── utils
+    └── utils #工具层
         ├── ArmyJson.go
         └── IniUtils.go
 ```
